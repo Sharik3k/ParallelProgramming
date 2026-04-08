@@ -2,23 +2,26 @@ import time
 import tracemalloc
 
 def performance(func):
-    def wrapper(*args, **kwargs):
+    def inner(*args, **kwargs):
         tracemalloc.start()
-        t1 = time.perf_counter()
+        start_time = time.perf_counter()
         
-        result = func(*args, **kwargs)
+        output = func(*args, **kwargs)
         
-        t2 = time.perf_counter()
-        _, peak = tracemalloc.get_traced_memory()
+        end_time = time.perf_counter()
+        current, peak_memory = tracemalloc.get_traced_memory()
         tracemalloc.stop()
         
-        performance.counter += 1
-        performance.total_time += (t2 - t1)
-        performance.total_mem += peak
         
-        return result
-    return wrapper
+        performance.counter += 1
+        performance.total_time += (end_time - start_time)
+        performance.total_mem += peak_memory
+        
+        return output
+    
+    return inner
+
 
 performance.counter = 0
-performance.total_time = 0
+performance.total_time = 0.0
 performance.total_mem = 0
