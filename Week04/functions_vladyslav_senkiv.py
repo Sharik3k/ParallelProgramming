@@ -26,7 +26,7 @@ def custom_equation(
     return float((x**a + y**b) / c)
 
 
-def fn_w_counter() -> Tuple[int, Dict[str, int]]:
+def fn_w_counter() -> (int, dict[str, int]):
     """Count total calls and calls grouped by caller module name."""
     if not hasattr(fn_w_counter, "total_calls"):
         fn_w_counter.total_calls = 0
