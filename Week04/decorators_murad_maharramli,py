@@ -1,0 +1,34 @@
+import time
+import tracemalloc
+from functools import wraps
+
+def performance(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        # Count the call
+        wrapper.counter += 1
+        
+        # Start memory tracking and timer
+        tracemalloc.start()
+        start_time = time.perf_counter()
+        
+        # Execute the actual function
+        result = func(*args, **kwargs)
+        
+        # Stop timer and memory tracking
+        end_time = time.perf_counter()
+        _, peak_mem = tracemalloc.get_traced_memory()
+        tracemalloc.stop()
+        
+        # Add the stats to the attributes
+        wrapper.total_time += (end_time - start_time)
+        wrapper.total_mem += peak_mem
+        
+        return result
+        
+    # Initialize the required attributes on the wrapper
+    wrapper.counter = 0
+    wrapper.total_time = 0.0
+    wrapper.total_mem = 0
+    
+    return wrapper
