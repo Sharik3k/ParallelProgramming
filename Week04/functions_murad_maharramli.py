@@ -23,13 +23,13 @@ def custom_equation(x: int = 0, y: int = 0, /, a: int = 1, b: int = 1, *, c: int
     """
     return (x ** a + y ** b) / c
 
-# 3. Function tracking state via attributes with strict type hinting
-def fn_w_counter() -> tuple[int, dict[str, int]]:
+# 3. Function tracking state via attributes with strict tuple type hinting
+def fn_w_counter() -> (int, dict[str, int]):
     """
     Tracks the total number of calls and the modules making those calls.
     
     :return: A tuple containing the total call count and a dictionary of callers.
-    :rtype: tuple[int, dict[str, int]]
+    :rtype: tuple
     """
     # Dynamically identify the module calling this function
     caller = sys._getframe(1).f_globals.get('__name__', '__main__')
