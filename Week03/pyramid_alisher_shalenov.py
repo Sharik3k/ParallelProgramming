@@ -1,4 +1,4 @@
-def calculate_pyramid_height(blocks):
+def calculate_pyramid_height(blocks):  # asd
     height = 0
     layer = 1
 
