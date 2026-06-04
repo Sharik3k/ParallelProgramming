@@ -5,7 +5,6 @@ from functools import wraps
 def performance(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-
         performance.counter += 1
         
         tracemalloc.start()
@@ -23,7 +22,6 @@ def performance(func):
         return result
 
     return wrapper
-
 
 performance.counter = 0
 performance.total_time = 0.0
